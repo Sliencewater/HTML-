@@ -1,0 +1,77 @@
+package text;
+
+public class text {
+	private  int[] Eight;
+	private  int gCount;
+	
+	text(){
+		
+		Eight = new int[8];
+		gCount = 0;
+		
+	}
+	public int  back_gCount(){
+		return gCount;
+	}
+	public void print() {
+		int out,in;   
+	    for(out = 0; out <8; out ++){  
+	        for(in = 0; in < Eight[out]; in ++)  
+	            System.out.printf("X ");  
+	  
+	        System.out.printf("O ");  
+	  
+	        for(in = Eight[out] + 1; in < 8; in ++)  
+	        	System.out. printf("X ");  
+	        System.out.print("\n");  
+	    }  
+	    System.out.printf("\n");  
+	}
+
+	public boolean check_pos_valid(int loop, int v)  
+	{  
+	    int index;  
+	    int d;  
+	  
+	    for(index = 0; index < loop; index ++){  
+	        d = Eight[index];  
+	  
+	        if(v == d)  
+	            return false;  
+	  
+	        if((index + d) == (loop + v))  
+	            return false;  
+	  
+	        if((index - d) == (loop - v))  
+	            return false;  
+	    }  
+	  
+	    return true;  
+	}  
+	
+	public void eight(int index)  
+	{  
+	    int loop;  
+	  
+	    for(loop = 0; loop < 8; loop++){  
+	        if(check_pos_valid(index, loop)){  
+	            Eight[index] = loop;  
+	  
+	            if(7 == index){  
+	                gCount ++; print();  
+	                Eight[index] = 0;  
+	                return;  
+	            }  
+	              
+	            eight(index + 1);  
+	            Eight[index] = 0;  
+	        }  
+	    }  
+	}  
+	public static void main(String args[])
+	{
+		text temp = new text();
+		temp.eight(0);
+		System.out.printf("共有 = %d\n", temp.back_gCount()); 
+	}
+}
